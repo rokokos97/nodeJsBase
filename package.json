@@ -9,6 +9,7 @@
   "author": "Rostyslav Lisovyi <rokokos97@gmail.com>",
   "license": "ISC",
   "dependencies": {
+    "@types/yargs": "^17.0.22",
     "yargs": "^17.7.1"
   }
 }
