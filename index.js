@@ -1,10 +1,20 @@
-const yargs = require() ('yargs')
+const yargs = require('yargs')
+const pkg = require('./package.json')
+
+const version = pkg.version
 
 yargs.command({
     command: "add",
     describe: "add new note to list",
-    handler () {
-        console.log("add command");
+    builder: {
+        title: {
+            type: "string",
+            describe: "note title",
+            demandOption: true
+        }
+    },
+    handler ({title}) {
+        console.log("add command", title);
     }
 })
 yargs.command({
@@ -14,3 +24,4 @@ yargs.command({
         console.log("list command");
     }
 })
+yargs.parse();
