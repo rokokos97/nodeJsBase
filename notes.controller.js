@@ -1,9 +1,6 @@
-
-
 const fs = require('fs/promises');
 const path = require('path');
 const chalk = require('chalk')
-const {epilog} = require("yargs");
 
 const notesPath = path.join(__dirname, 'db.json');
 async function addNote(title){
@@ -22,10 +19,17 @@ async function getNotes(){
 }
 async  function printNotes(){
     const notes = await getNotes();
-    notes.forEach((note)=> console.log(chalk.red(note.title)))
+    notes.forEach((note)=> console.log(chalk.red(note.id, note.title)))
 }
+async function deleteNotes(id){
+    const notes = await getNotes();
+    const newNote = notes.filter((note) => note.id !== id.toString())
+    await fs.writeFile(notesPath, JSON.stringify(newNote))
+}
+
 
 module.exports = {
     addNote,
-    printNotes
+    printNotes,
+    deleteNotes
 };
