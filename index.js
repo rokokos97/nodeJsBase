@@ -1,5 +1,6 @@
-const yargs = require('yargs')
-const {addNote, getNotes} = require('./notes.controller')
+const yargs = require('yargs');
+
+const {addNote, getNotes} = require('./notes.controller');
 
 
 yargs.command({
