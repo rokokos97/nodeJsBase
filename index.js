@@ -1,6 +1,6 @@
 const yargs = require('yargs');
 
-const {addNote, getNotes} = require('./notes.controller');
+const {addNote, printNotes} = require('./notes.controller');
 
 
 yargs.command({
@@ -21,8 +21,7 @@ yargs.command({
     command: "list",
     describe: "prints all notes",
     async handler () {
-        const notes = await getNotes();
-        console.log(notes);
+        await printNotes();
     }
 })
 yargs.parse();
