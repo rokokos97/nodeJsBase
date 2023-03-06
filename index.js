@@ -37,6 +37,15 @@ app.delete('/:id', async (req, res)=>{
     });
 
 })
+app.put('/:id', async (req, res) => {
+    await updateNote({ id: req.params.id, title: req.body.title })
+    res.render('index', {
+        title: 'Express App',
+        notes: await getNotes(),
+        created: false
+    })
+})
+
 app.listen(port,()=>{
     console.log(chalk.green(`Server hes been started`))
 })
