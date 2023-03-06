@@ -15,11 +15,16 @@ app.get('/', async (req, res)=>{
     res.render('index', {
         title : 'Express app',
         notes: await getNotes(),
+        created: false,
     });
 })
 app.post('/', async (req, res)=>{
     await addNote(req.body.title);
-    res.render('index');
+    res.render('index', {
+        title : 'Express app',
+        notes: await getNotes(),
+        created: true,
+    });
 })
 app.listen(port,()=>{
     console.log(chalk.green(`Server hes been started`))
