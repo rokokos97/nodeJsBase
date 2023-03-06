@@ -11,6 +11,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'pages');
 
 app.use(express.static(path.resolve(__dirname,'public')))
+app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.get('/', async (req, res)=>{
     res.render('index', {
@@ -22,7 +23,7 @@ app.get('/', async (req, res)=>{
 app.post('/', async (req, res)=>{
     await addNote(req.body.title);
     res.render('index', {
-        title : 'Express app',
+        title : 'Add new notes',
         notes: await getNotes(),
         created: true,
     });

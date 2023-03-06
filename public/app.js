@@ -4,20 +4,28 @@ document.addEventListener('click', event => {
         remove(event.target.dataset.id).then(()=>{
             event.target.closest('li').remove()
         })
-    } else if (event.target.dataset.type === 'edit'){
-        const newTitle = prompt('Enter new title')
-        if(newTitle){
-            edit(event.target.dataset.id, newTitle)
-        }
-        console.log(event.target.dataset.id)
     }
-
+    if (event.target.dataset.type === 'edit') {
+        const id = event.target.dataset.id
+        const title = event.target.dataset.title
+        const newTitle = prompt('Введите новое название', title)
+        if (newTitle !== null) {
+            update({ id, title: newTitle }).then(() => {
+                event.target.closest('li').querySelector('span').innerText = newTitle
+            })
+        }
+    }
 })
-
 async function remove(id){
     await fetch(`/${id}`, {method: 'DELETE'})
 }
-async function edit(id , title){
-    await fetch(`/${id}`,{method:'PUT', body: title})
-    console.log(id,title)
+async function update(newNote) {
+    await fetch(`/${newNote.id}`, {
+        method: 'PUT',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(newNote)
+    })
 }
