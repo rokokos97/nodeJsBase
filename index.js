@@ -13,9 +13,9 @@ app.use(express.urlencoded({ extended: true }))
 app.get('/', (req, res)=>{
     res.sendFile(path.join(basePath, 'index.html'))
 })
-app.post('/', (req, res)=>{
-    console.log(req.body)
-    res.sendFile(path.join(basePath, 'index.html'))
+app.post('/', async (req, res)=>{
+    await addNote(req.body.title);
+    res.sendFile(path.join(basePath, 'index.html'));
 })
 app.listen(port,()=>{
     console.log(chalk.green(`Server hes been started`))
