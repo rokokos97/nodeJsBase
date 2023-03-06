@@ -7,7 +7,12 @@ const basePath = path.join(__dirname, "pages")
 const server = http.createServer(async (req, res) => {
     if (req.method === "GET"){
         const content = await fs.readFile(path.join(basePath, "index.html"));
+        res.writeHead(200, {
+            'Content-Type':'text/html'
+        })
         res.end(content);
+    } else if (req.method === "POST"){
+        res.end('Post success')
     }
 });
 server.listen(port,()=>{
