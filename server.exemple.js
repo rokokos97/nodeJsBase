@@ -3,12 +3,12 @@ const chalk = require('chalk');
 const fs = require('fs/promises');
 const path = require('path');
 const port = 3000;
-const basePath = path.join(__dirname, "pages")
+const basePath = path.join(__dirname, "views")
 const {addNote} = require('./notes.controller')
 
 const server = http.createServer(async (req, res) => {
     if (req.method === "GET"){
-        const content = await fs.readFile(path.join(basePath, "index.html"));
+        const content = await fs.readFile(path.join(basePath, "index.ejs"));
         res.writeHead(200, {
             'Content-Type':'text/html'
         })

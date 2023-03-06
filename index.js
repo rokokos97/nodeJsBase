@@ -1,21 +1,25 @@
 const http = require('http');
 const chalk = require('chalk');
 const fs = require('fs/promises');
-const path = require('path');
 const port = 3000;
-const basePath = path.join(__dirname, "pages");
 const express = require('express');
-const {addNote} = require('./notes.controller');
+const {addNote, getNotes} = require('./notes.controller');
 
 const app = express();
 
+app.set('view engine', 'ejs');
+app.set('views', 'pages');
+
 app.use(express.urlencoded({ extended: true }))
-app.get('/', (req, res)=>{
-    res.sendFile(path.join(basePath, 'index.html'))
+app.get('/', async (req, res)=>{
+    res.render('index', {
+        title : 'Express app',
+        notes: await getNotes(),
+    });
 })
 app.post('/', async (req, res)=>{
     await addNote(req.body.title);
-    res.sendFile(path.join(basePath, 'index.html'));
+    res.render('index');
 })
 app.listen(port,()=>{
     console.log(chalk.green(`Server hes been started`))
