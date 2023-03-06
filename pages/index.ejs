@@ -16,7 +16,9 @@
     <h1><%= title %></h1>
     <form action="/" method="post" class="mb-2">
         <div class="form-group mb-2">
-            <input type="text" name="title" class="form-control" required/>
+            <label>
+                <input type="text" name="title" class="form-control" required/>
+            </label>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -24,9 +26,12 @@
     <div class="card">
         <ul class="list-group">
             <% for(let i=0; i<notes.length; i++){ %>
-            <li class="list-group-item d-flex justify-content-between aline-item-center">
+            <li class="list-group-item d-flex justify-content-between aline-item-end">
                 <%= notes[i].title%>
-                <button class="btn btn-danger" data-type="remove" data-id="<%= notes[i].id %>">&times</button>
+                <div>
+                    <button class="btn btn-primary" data-type="edit" data-id="<%= notes[i].id %>">edit notes title</button>
+                    <button class="btn btn-danger" data-type="remove" data-id="<%= notes[i].id %>">&times</button>
+                </div>
             </li>
             <% } %>
         </ul>
