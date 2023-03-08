@@ -23,13 +23,26 @@ async  function printNotes(){
 }
 async function deleteNotes(id){
     const notes = await getNotes();
-    const newNote = notes.filter((note) => note.id !== id.toString())
-    await fs.writeFile(notesPath, JSON.stringify(newNote))
+    const newNotes = notes.filter((note) => note.id !== id.toString())
+    await fs.writeFile(notesPath, JSON.stringify(newNotes))
+}
+async function editNotesById(id,title){
+    const notes = await getNotes();
+    const editNoteIndex = notes.findIndex((note) => note.id === id);
+    if (editNoteIndex !== -1){
+        notes[editNoteIndex].title = title;
+        await fs.writeFile(notesPath, JSON.stringify(notes))
+        console.log(chalk.green("title hes been changed"));
+    } else {
+        console.log(chalk.red(`note with id:${id} dont found`));
+    }
+
 }
 
 
 module.exports = {
     addNote,
     printNotes,
-    deleteNotes
+    deleteNotes,
+    editNotesById
 };
